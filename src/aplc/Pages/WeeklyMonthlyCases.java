@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -44,8 +47,6 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
     }
 
     private void initTableWeeklyCases() {
-        tb2.setAutoCreateRowSorter(true);
-        tb2.setAutoResizeMode(tb2.AUTO_RESIZE_OFF);
         model = (DefaultTableModel) tb2.getModel();
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("Country");
@@ -59,6 +60,10 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
                 model.addColumn(columnName);
             }
         }
+
+        int length = columnNames.size();
+        tableConfig(length);
+
         String[][] tableData = new String[distinctCountriesList.size()][weeklyFormattedDates.size() + 1];
         if (distinctCountriesList != null) {
             for (int i = 0; i < distinctCountriesList.size(); i++) {
@@ -86,7 +91,6 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
             for (int i = 0; i < monthlyFormattedDates.size(); i++) {
 
                 String MonthlyDate = monthlyFormattedDates.get(i);
-                System.out.println(MonthlyDate); //   01/2020
                 try {
                     columnNames.add(monthFormat.format(monthFormat.parse(MonthlyDate)));
                 } catch (ParseException ex) {
@@ -97,6 +101,10 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
                 model.addColumn(columnName);
             }
         }
+
+        int length = columnNames.size();
+        tableConfig(length);
+
         String[][] tableData = new String[distinctCountriesList.size()][monthlyFormattedDates.size() + 1];
         if (distinctCountriesList != null) {
             for (int i = 0; i < distinctCountriesList.size(); i++) {
@@ -129,6 +137,7 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         tb2.setAutoCreateRowSorter(true);
         tb2.setModel(new javax.swing.table.DefaultTableModel(
@@ -183,7 +192,13 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void tableConfig(int length) {
+        tb2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        tb2.setModel(model);
+        for (int i = 0; i < length; i++) {
+            tb2.getColumnModel().getColumn(i).setPreferredWidth(170);
+        }
+    }
     private void cmbReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbReportActionPerformed
         // TODO add your handling code here:
         switch (cmbReport.getSelectedIndex()) {

@@ -11,7 +11,8 @@ import java.util.Date;
  * @author caesa
  */
 public class CountryDataElement {
-     private Date date;
+
+    private Date date;
     private int data;
 
     public CountryDataElement(Date date, int data) {
@@ -33,5 +34,5 @@ public class CountryDataElement {
 
     public void setData(int data) {
         this.data = data;
-    } 
+    }
 }

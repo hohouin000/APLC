@@ -47,7 +47,10 @@ public class ConfirmedCases extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
+        tb1.setBorder(new javax.swing.border.MatteBorder(null));
+        tb1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tb1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -56,6 +59,7 @@ public class ConfirmedCases extends javax.swing.JFrame {
                 "Country", "Total Confirmed Covid-19 Cases  "
             }
         ));
+        tb1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane2.setViewportView(tb1);
 
         btnBack.setText("Back");
@@ -72,16 +76,14 @@ public class ConfirmedCases extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(btnBack))
+                    .addComponent(btnBack)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -94,10 +96,8 @@ public class ConfirmedCases extends javax.swing.JFrame {
     private void initTable() {
         tb1.setAutoCreateRowSorter(true);
         model = (DefaultTableModel) tb1.getModel();
-        System.out.println(distinctCountriesList.size());
         if (distinctCountriesList != null) {
             for (int i = 0; i < distinctCountriesList.size(); i++) {
-                // Country country = distinctCountriesList.get(i);
                 int totalConfirmedCases = Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet, distinctCountriesList.get(i).getName_Region()));
                 if (distinctCountriesList == null) {
                 } else {

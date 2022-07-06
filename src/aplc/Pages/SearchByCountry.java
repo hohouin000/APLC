@@ -10,7 +10,10 @@ import aplc.Functions;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -52,8 +55,10 @@ public class SearchByCountry extends javax.swing.JFrame {
         lblCountry = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         tb4.setAutoCreateRowSorter(true);
+        tb4.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         tb4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -128,8 +133,8 @@ public class SearchByCountry extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(lblCountry)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
