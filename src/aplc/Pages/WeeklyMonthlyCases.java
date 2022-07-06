@@ -28,7 +28,7 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
     SimpleDateFormat weekFormat2 = new SimpleDateFormat("dd-MMM-yyyy");
     SimpleDateFormat monthFormat = new SimpleDateFormat("MMM-yyyy");
     List<Country> confirmedCasesDataSet = ReadFile.getConfirmedCases();
-    List<Country> availableCountriesList = Functions.getCountryList(confirmedCasesDataSet);
+    List<Country> distinctCountriesList = Functions.getDistinctCountryList(confirmedCasesDataSet);
     List<String> weeklyFormattedDates = Functions.getWeeklyOrMonthlyFormattedDate(confirmedCasesDataSet, weekFormat);
     List<String> monthlyFormattedDates = Functions.getWeeklyOrMonthlyFormattedDate(confirmedCasesDataSet, monthFormat);
 
@@ -59,14 +59,14 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
                 model.addColumn(columnName);
             }
         }
-        String[][] tableData = new String[availableCountriesList.size()][weeklyFormattedDates.size() + 1];
-        if (availableCountriesList != null) {
-            for (int i = 0; i < availableCountriesList.size(); i++) {
-                tableData[i][0] = availableCountriesList.get(i).getName_Region();
+        String[][] tableData = new String[distinctCountriesList.size()][weeklyFormattedDates.size() + 1];
+        if (distinctCountriesList != null) {
+            for (int i = 0; i < distinctCountriesList.size(); i++) {
+                tableData[i][0] = distinctCountriesList.get(i).getName_Region();
                 for (int k = 0; k < weeklyFormattedDates.size(); k++) {
                     tableData[i][k + 1] = (Functions.getWeeklyOrMonthlyConfirmedCasesByCountry(Functions.getSameCountries(
-                            confirmedCasesDataSet, availableCountriesList.get(i).getName_Region()),
-                            availableCountriesList.get(i).getName_Region(),
+                            confirmedCasesDataSet, distinctCountriesList.get(i).getName_Region()),
+                            distinctCountriesList.get(i).getName_Region(),
                             weeklyFormattedDates.get(k), weekFormat)).toString();
                 }
             }
@@ -98,14 +98,14 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
                 model.addColumn(columnName);
             }
         }
-        String[][] tableData = new String[availableCountriesList.size()][monthlyFormattedDates.size() + 1];
-        if (availableCountriesList != null) {
-            for (int i = 0; i < availableCountriesList.size(); i++) {
-                tableData[i][0] = availableCountriesList.get(i).getName_Region();
+        String[][] tableData = new String[distinctCountriesList.size()][monthlyFormattedDates.size() + 1];
+        if (distinctCountriesList != null) {
+            for (int i = 0; i < distinctCountriesList.size(); i++) {
+                tableData[i][0] = distinctCountriesList.get(i).getName_Region();
                 for (int k = 0; k < monthlyFormattedDates.size(); k++) {
                     tableData[i][k + 1] = (Functions.getWeeklyOrMonthlyConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet,
-                            availableCountriesList.get(i).getName_Region()),
-                            availableCountriesList.get(i).getName_Region(),
+                            distinctCountriesList.get(i).getName_Region()),
+                            distinctCountriesList.get(i).getName_Region(),
                             monthlyFormattedDates.get(k), monthFormat)).toString();
                 }
             }

@@ -35,6 +35,7 @@ public class StatisticSelection extends javax.swing.JFrame {
         btnSelection1 = new javax.swing.JButton();
         btnSelection2 = new javax.swing.JButton();
         btnSelection3 = new javax.swing.JButton();
+        btnSelection4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,17 +60,29 @@ public class StatisticSelection extends javax.swing.JFrame {
             }
         });
 
+        btnSelection4.setText(" Search Confirmed, Death and Recovered cases by Country. ");
+        btnSelection4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelection4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnSelection1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSelection2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSelection3))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnSelection1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSelection2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSelection3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(btnSelection4)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,7 +93,9 @@ public class StatisticSelection extends javax.swing.JFrame {
                 .addComponent(btnSelection2)
                 .addGap(18, 18, 18)
                 .addComponent(btnSelection3)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSelection4)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,6 +110,9 @@ public class StatisticSelection extends javax.swing.JFrame {
 
     private void btnSelection3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelection3ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        DeathRecoveredCases DeathRecoveredCases = new DeathRecoveredCases();
+        DeathRecoveredCases.setVisible(true);
     }//GEN-LAST:event_btnSelection3ActionPerformed
 
     private void btnSelection1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelection1ActionPerformed
@@ -102,6 +120,13 @@ public class StatisticSelection extends javax.swing.JFrame {
         ConfirmedCases ConfirmedCases = new ConfirmedCases();
         ConfirmedCases.setVisible(true);
     }//GEN-LAST:event_btnSelection1ActionPerformed
+
+    private void btnSelection4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelection4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        SearchByCountry SearchByCountry = new SearchByCountry();
+        SearchByCountry.setVisible(true);
+    }//GEN-LAST:event_btnSelection4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,5 +167,6 @@ public class StatisticSelection extends javax.swing.JFrame {
     private javax.swing.JButton btnSelection1;
     private javax.swing.JButton btnSelection2;
     private javax.swing.JButton btnSelection3;
+    private javax.swing.JButton btnSelection4;
     // End of variables declaration//GEN-END:variables
 }
