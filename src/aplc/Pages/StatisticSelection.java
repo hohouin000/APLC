@@ -36,6 +36,8 @@ public class StatisticSelection extends javax.swing.JFrame {
         btnSelection2 = new javax.swing.JButton();
         btnSelection3 = new javax.swing.JButton();
         btnSelection4 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnMainMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,10 +62,21 @@ public class StatisticSelection extends javax.swing.JFrame {
             }
         });
 
-        btnSelection4.setText(" Search Confirmed, Death and Recovered cases by Country. ");
+        btnSelection4.setText(" Search Confirmed, Death and Recovered Cases by Country. ");
         btnSelection4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSelection4ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("SimSun-ExtB", 0, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("SELECT YOUR OPTION");
+
+        btnMainMenu.setText("Main Menu");
+        btnMainMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMainMenuActionPerformed(evt);
             }
         });
 
@@ -72,22 +85,27 @@ public class StatisticSelection extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
+                        .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnSelection1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSelection2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSelection3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(btnSelection4)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                    .addComponent(btnSelection4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnMainMenu))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(34, 34, 34)
                 .addComponent(btnSelection1)
                 .addGap(18, 18, 18)
                 .addComponent(btnSelection2)
@@ -95,7 +113,9 @@ public class StatisticSelection extends javax.swing.JFrame {
                 .addComponent(btnSelection3)
                 .addGap(18, 18, 18)
                 .addComponent(btnSelection4)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(btnMainMenu)
+                .addContainerGap())
         );
 
         pack();
@@ -127,6 +147,13 @@ public class StatisticSelection extends javax.swing.JFrame {
         SearchByCountry SearchByCountry = new SearchByCountry();
         SearchByCountry.setVisible(true);
     }//GEN-LAST:event_btnSelection4ActionPerformed
+
+    private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        MainMenu MainMenu = new MainMenu();
+        MainMenu.setVisible(true);
+    }//GEN-LAST:event_btnMainMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,9 +191,11 @@ public class StatisticSelection extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMainMenu;
     private javax.swing.JButton btnSelection1;
     private javax.swing.JButton btnSelection2;
     private javax.swing.JButton btnSelection3;
     private javax.swing.JButton btnSelection4;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

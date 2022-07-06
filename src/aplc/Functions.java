@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class Functions {
 
     private static final BiPredicate<String, String> sameCountry = (input, comparison) -> input.equals(comparison);
-    private static final BiPredicate<String, String> countryNameExist = (input, comparison) -> input.contains(comparison);
+    //  private static final BiPredicate<String, String> countryNameExist = (input, comparison) -> input.equals(comparison);
 
     // Source: https://stackoverflow.com/questions/23699371/java-8-distinct-by-propert
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
@@ -46,7 +46,7 @@ public class Functions {
     /**
      * Requirement 1: Find Total Confirmed Cases
      */
-    public static Integer getTotalConfirmedCasesByCountry(List<Country> dataset, String country) {
+    public static Integer getTotalConfirmedCasesByCountry(List<Country> dataset) {
         return dataset.stream().map(elem -> elem.getDataset())
                 .mapToInt(elem -> elem.stream().mapToInt(a -> a.getData()).reduce(0, (x, y) -> x + y))
                 .sum();
@@ -63,7 +63,7 @@ public class Functions {
                 .collect(Collectors.toList());
     }
 
-    public static Integer getWeeklyOrMonthlyConfirmedCasesByCountry(List<Country> dataset, String country, String monthweekYear, SimpleDateFormat dateFormat) {
+    public static Integer getWeeklyOrMonthlyConfirmedCasesByCountry(List<Country> dataset, String monthweekYear, SimpleDateFormat dateFormat) {
         return dataset.stream().map(p -> p.getDataset())
                 .mapToInt(dataElements -> dataElements.stream().filter(p
                 -> dateFormat.format(p.getDate()).equals(monthweekYear)).mapToInt(p -> p.getData()).sum())
@@ -93,7 +93,7 @@ public class Functions {
     private static final Function<Integer, Function<Integer, Integer>> getMinValue = a -> b -> ((a > b) ? b : a);
     private static final Function<Integer, Function<Integer, Integer>> getMaxValue = a -> b -> ((a > b) ? a : b);
 
-    public static int getHighestCountryData(List<Country> dataset, String country, BiFunction<int[], Integer, Integer> func) {
+    public static int getHighestCountryData(List<Country> dataset, BiFunction<int[], Integer, Integer> func) {
         int[] resultArray = dataset.stream()
                 .map(c -> c.getDataset())
                 .flatMap(Collection::stream)
@@ -104,7 +104,7 @@ public class Functions {
 
     }
 
-    public static int getLowestCountryData(List<Country> dataset, String country) {
+    public static int getLowestCountryData(List<Country> dataset) {
         int[] resultArray = dataset.stream()
                 .map(c -> c.getDataset())
                 .flatMap(Collection::stream)
@@ -132,7 +132,7 @@ public class Functions {
     public static List<Country> searchByCountryName(List<Country> dataset, String country) {
         return dataset.stream()
                 .filter(distinctByKey(p -> p.getName_Region()))
-                .filter(p -> countryNameExist.test(p.getName_Region(), country))
+                .filter(p -> sameCountry.test(p.getName_Region().toLowerCase(), country))
                 .collect(Collectors.toList());
     }
 

@@ -66,7 +66,6 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
                 for (int k = 0; k < weeklyFormattedDates.size(); k++) {
                     tableData[i][k + 1] = (Functions.getWeeklyOrMonthlyConfirmedCasesByCountry(Functions.getSameCountries(
                             confirmedCasesDataSet, distinctCountriesList.get(i).getName_Region()),
-                            distinctCountriesList.get(i).getName_Region(),
                             weeklyFormattedDates.get(k), weekFormat)).toString();
                 }
             }
@@ -105,7 +104,6 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
                 for (int k = 0; k < monthlyFormattedDates.size(); k++) {
                     tableData[i][k + 1] = (Functions.getWeeklyOrMonthlyConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet,
                             distinctCountriesList.get(i).getName_Region()),
-                            distinctCountriesList.get(i).getName_Region(),
                             monthlyFormattedDates.get(k), monthFormat)).toString();
                 }
             }

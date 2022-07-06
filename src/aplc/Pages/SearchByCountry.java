@@ -73,6 +73,11 @@ public class SearchByCountry extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tb4);
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -141,14 +146,27 @@ public class SearchByCountry extends javax.swing.JFrame {
                     "Textfield is empty, please insert a country !",
                     "Error Message",
                     JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                countrySearched = txtSearch.getText().toLowerCase();
+                List<Country> countryResult = Functions.searchByCountryName(confirmedCasesDataSet, countrySearched);
+                Country country = countryResult.get(0);
+                lblCountry.setText("Country Name:  " + country.getName_Region());
+                initTable(country);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,
+                        "Invalid Country Name !",
+                        "Error Message",
+                        JOptionPane.ERROR_MESSAGE);
+
+            }
+
         }
-        countrySearched = txtSearch.getText().substring(0, 1).toUpperCase() + txtSearch.getText().substring(1);
 
-        List<Country> countryResult = Functions.searchByCountryName(confirmedCasesDataSet, countrySearched);
-        Country country = countryResult.get(0);
+    }//GEN-LAST:event_btnSearchActionPerformed
 
-        lblCountry.setText("Country Name:  " + country.getName_Region());
-
+    private void initTable(Country country) {
         String[][] tableData = new String[9][2];
         tableData[0][0] = "Total Confirmed Covid 19 Cases";
         tableData[1][0] = "Total Recovered Covid 19 Cases";
@@ -160,37 +178,39 @@ public class SearchByCountry extends javax.swing.JFrame {
         tableData[7][0] = "Lowest Death Covid 19 Cases Per Day";
         tableData[8][0] = "Highest Death Covid 19 Cases Per Day";
 
-        tableData[0][1] = String.valueOf(Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet, country.getName_Region()),
-                country.getName_Region()));
-        tableData[1][1] = String.valueOf(Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(countriesRecoveredCasesDataSet, country.getName_Region()),
-                country.getName_Region()));
-        tableData[2][1] = String.valueOf(Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(countriesDeathCasesDataSet, country.getName_Region()),
-                country.getName_Region()));
-        tableData[3][1] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(confirmedCasesDataSet, country.getName_Region()),
-                country.getName_Region()), 0));
+        tableData[0][1] = String.valueOf(Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet, country.getName_Region())));
+        tableData[1][1] = String.valueOf(Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(countriesRecoveredCasesDataSet, country.getName_Region())));
+        tableData[2][1] = String.valueOf(Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(countriesDeathCasesDataSet, country.getName_Region())));
+        tableData[3][1] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(confirmedCasesDataSet, country.getName_Region())
+        ), 0));
         tableData[4][1] = String.valueOf(Math.max(Functions.getHighestCountryData(Functions.getSameCountries(confirmedCasesDataSet, country.getName_Region()),
-                country.getName_Region(),
                 Functions.getHighestValue), 0));
-        tableData[5][1] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(countriesRecoveredCasesDataSet, country.getName_Region()),
-                country.getName_Region()), 0));
+        tableData[5][1] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(countriesRecoveredCasesDataSet, country.getName_Region())
+        ), 0));
         tableData[6][1] = String.valueOf(Math.max(Functions.getHighestCountryData(Functions.getSameCountries(countriesRecoveredCasesDataSet, country.getName_Region()),
-                country.getName_Region(),
                 Functions.getHighestValue), 0));
-        tableData[7][1] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(countriesDeathCasesDataSet, country.getName_Region()),
-                country.getName_Region()), 0));
+        tableData[7][1] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(countriesDeathCasesDataSet, country.getName_Region())
+        ), 0));
         tableData[8][1] = String.valueOf(Math.max(Functions.getHighestCountryData(Functions.getSameCountries(countriesDeathCasesDataSet, country.getName_Region()),
-                country.getName_Region(),
                 Functions.getHighestValue), 0));
 
         for (String[] row : tableData) {
             model.addRow(row);
         }
-
-    }//GEN-LAST:event_btnSearchActionPerformed
-
+    }
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
+        model = (DefaultTableModel) tb4.getModel();
+        model.setRowCount(0);
+        lblCountry.setText("");
     }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        StatisticSelection StatisticSelection = new StatisticSelection();
+        StatisticSelection.setVisible(true);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments

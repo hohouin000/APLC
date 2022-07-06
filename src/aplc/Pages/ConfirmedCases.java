@@ -98,8 +98,7 @@ public class ConfirmedCases extends javax.swing.JFrame {
         if (distinctCountriesList != null) {
             for (int i = 0; i < distinctCountriesList.size(); i++) {
                 // Country country = distinctCountriesList.get(i);
-                int totalConfirmedCases = Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet, distinctCountriesList.get(i).getName_Region()),
-                        distinctCountriesList.get(i).getName_Region());
+                int totalConfirmedCases = Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet, distinctCountriesList.get(i).getName_Region()));
                 if (distinctCountriesList == null) {
                 } else {
                     model.insertRow(model.getRowCount(), new Object[]{
