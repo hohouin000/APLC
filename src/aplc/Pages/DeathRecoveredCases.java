@@ -59,10 +59,7 @@ public class DeathRecoveredCases extends javax.swing.JFrame {
             model.addRow(row);
         }
     }
-
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
+    // TODO add your handling code here:
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -134,8 +131,8 @@ public class DeathRecoveredCases extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        StatisticSelection StatisticSelection = new StatisticSelection();
-        StatisticSelection.setVisible(true);
+        StatisticSelection statsObj = new StatisticSelection();
+        statsObj.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**

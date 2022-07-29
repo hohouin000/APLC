@@ -10,10 +10,7 @@ import aplc.Functions;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -213,8 +210,8 @@ public class SearchByCountry extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        StatisticSelection StatisticSelection = new StatisticSelection();
-        StatisticSelection.setVisible(true);
+        StatisticSelection statsObj = new StatisticSelection();
+        statsObj.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**

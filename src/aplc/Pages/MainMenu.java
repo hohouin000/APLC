@@ -95,12 +95,14 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnStatPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatPageActionPerformed
         this.dispose();
-        StatisticSelection StatisticSelection = new StatisticSelection();
-        StatisticSelection.setVisible(true);
+        StatisticSelection statsObj = new StatisticSelection();
+        statsObj.setVisible(true);
     }//GEN-LAST:event_btnStatPageActionPerformed
 
     private void btnKnwPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKnwPageActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        KnowledgeBase prologObj = new KnowledgeBase();
+        prologObj.setVisible(true);
     }//GEN-LAST:event_btnKnwPageActionPerformed
 
     /**

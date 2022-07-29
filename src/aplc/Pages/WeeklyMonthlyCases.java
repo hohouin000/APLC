@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -82,8 +80,6 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
     }
 
     private void initTableMonthlyCases() {
-        tb2.setAutoCreateRowSorter(true);
-        tb2.setAutoResizeMode(tb2.AUTO_RESIZE_OFF);
         model = (DefaultTableModel) tb2.getModel();
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("Country");
@@ -221,8 +217,8 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        StatisticSelection StatisticSelection = new StatisticSelection();
-        StatisticSelection.setVisible(true);
+        StatisticSelection statsObj = new StatisticSelection();
+        statsObj.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**

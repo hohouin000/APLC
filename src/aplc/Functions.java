@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 public class Functions {
 
     private static final BiPredicate<String, String> sameCountry = (input, comparison) -> input.equals(comparison);
-    //  private static final BiPredicate<String, String> countryNameExist = (input, comparison) -> input.equals(comparison);
 
     // Source: https://stackoverflow.com/questions/23699371/java-8-distinct-by-propert
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
@@ -32,12 +31,18 @@ public class Functions {
     }
 
     public static List<Country> getSameCountries(List<Country> dataSet, String country) {
+        if (dataSet == null) {
+            return null;
+        }
         return dataSet.stream()
                 .filter(elem -> sameCountry.test(elem.getName_Region(), country))
                 .collect(Collectors.toList());
     }
 
     public static List<Country> getDistinctCountryList(List<Country> dataSet) {
+        if (dataSet == null) {
+            return null;
+        }
         return dataSet.stream()
                 .filter(distinctByKey(elem -> elem.getName_Region()))
                 .collect(Collectors.toList());
@@ -47,6 +52,9 @@ public class Functions {
      * Requirement 1: Find Total Confirmed Cases
      */
     public static int getTotalConfirmedCasesByCountry(List<Country> dataSet) {
+        if (dataSet == null) {
+            return 0;
+        }
         return dataSet.stream().map(elem -> elem.getDataset())
                 .mapToInt(elem -> elem.stream().mapToInt(a -> a.getData()).reduce(0, (x, y) -> x + y))
                 .sum();
@@ -56,6 +64,9 @@ public class Functions {
      * Requirement 2: Find Weekly and Monthly Confirmed Cases
      */
     public static List<String> getWeeklyOrMonthlyFormattedDate(List<Country> dataSet, SimpleDateFormat dateFormat) {
+        if (dataSet == null) {
+            return null;
+        }
         Country resultList = dataSet.get(0);
         return resultList.getDataset().stream()
                 .map(elem -> dateFormat.format(elem.getDate()))
@@ -64,26 +75,32 @@ public class Functions {
     }
 
     public static Integer getWeeklyOrMonthlyConfirmedCasesByCountry(List<Country> dataSet, String monthweekYear, SimpleDateFormat dateFormat) {
-        return dataSet.stream().map(p -> p.getDataset())
-                .mapToInt(dataElements -> dataElements.stream().filter(p
-                -> dateFormat.format(p.getDate()).equals(monthweekYear)).mapToInt(p -> p.getData()).sum())
+        if (dataSet == null) {
+            return null;
+        }
+        return dataSet.stream().map(elem -> elem.getDataset())
+                .mapToInt(dataElements -> dataElements.stream().filter(elem
+                -> dateFormat.format(elem.getDate()).equals(monthweekYear)).mapToInt(elem -> elem.getData()).sum())
                 .sum();
     }
 
     public static String getStartDateForWeekly(List<Country> dataSet, String weekYear, SimpleDateFormat dateFormat, SimpleDateFormat dateFormat2) {
+        if (dataSet == null) {
+            return null;
+        }
         Country resultList = dataSet.get(0);
         return resultList.getDataset().stream()
-                .filter(p -> dateFormat.format(p.getDate()).equals(weekYear))
-                .sorted(Comparator.comparing(p -> p.getDate()))
-                .map(p -> dateFormat2.format(p.getDate())).findFirst().orElse(null);
+                .filter(elem -> dateFormat.format(elem.getDate()).equals(weekYear))
+                .sorted(Comparator.comparing(elem -> elem.getDate()))
+                .map(elem -> dateFormat2.format(elem.getDate())).findFirst().orElse(null);
     }
 
     public static String getEndDateForWeekly(List<Country> dataSet, String weekYear, SimpleDateFormat dateFormat, SimpleDateFormat dateFormat2) {
         Country resultList = dataSet.get(0);
         return resultList.getDataset().stream()
-                .filter(p -> dateFormat.format(p.getDate()).equals(weekYear))
-                .sorted(Comparator.comparing(p -> p.getDate()))
-                .map(p -> dateFormat2.format(p.getDate())).reduce((a, b) -> b).orElse(null);
+                .filter(elem -> dateFormat.format(elem.getDate()).equals(weekYear))
+                .sorted(Comparator.comparing(elem -> elem.getDate()))
+                .map(elem -> dateFormat2.format(elem.getDate())).reduce((a, b) -> b).orElse(null);
     }
 
     /*
@@ -94,6 +111,9 @@ public class Functions {
     private static final Function<Integer, Function<Integer, Integer>> getMaxValue = a -> b -> ((a > b) ? a : b);
 
     public static int getHighestCountryData(List<Country> dataSet, BiFunction<int[], Integer, Integer> func) {
+        if (dataSet == null) {
+            return 0;
+        }
         int[] resultArray = dataSet.stream()
                 .map(c -> c.getDataset())
                 .flatMap(Collection::stream)
@@ -105,6 +125,9 @@ public class Functions {
     }
 
     public static int getLowestCountryData(List<Country> dataSet) {
+        if (dataSet == null) {
+            return 0;
+        }
         int[] resultArray = dataSet.stream()
                 .map(c -> c.getDataset())
                 .flatMap(Collection::stream)
@@ -131,8 +154,8 @@ public class Functions {
      */
     public static List<Country> searchByCountryName(List<Country> dataSet, String country) {
         return dataSet.stream()
-                .filter(distinctByKey(p -> p.getName_Region()))
-                .filter(p -> sameCountry.test(p.getName_Region().toLowerCase(), country))
+                .filter(distinctByKey(elem -> elem.getName_Region()))
+                .filter(elem -> sameCountry.test(elem.getName_Region().toLowerCase(), country))
                 .collect(Collectors.toList());
     }
 

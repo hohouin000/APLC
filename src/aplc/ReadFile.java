@@ -39,7 +39,7 @@ public class ReadFile {
         boolean isHeader = true;
 
         while ((row = reader.readNext()) != null) {
-            Country country = new Country();
+            Country countryObj = new Country();
             if (isHeader) {
                 headers.addAll(Arrays.asList(row));
                 isHeader = false;
@@ -54,19 +54,19 @@ public class ReadFile {
 
                     case 0 -> {
                         if (!data.isEmpty() && !data.equals("")) {
-                            country.setState_Province(data);
+                            countryObj.setState_Province(data);
                         }
                     }
                     case 1 ->
-                        country.setName_Region(data);
+                        countryObj.setName_Region(data);
                     case 2 -> {
                         if (!data.isEmpty()) {
-                            country.setLatitude(Float.valueOf(data));
+                            countryObj.setLatitude(Float.valueOf(data));
                         }
                     }
                     case 3 -> {
                         if (!data.isEmpty()) {
-                            country.setLongitude(Float.valueOf(data));
+                            countryObj.setLongitude(Float.valueOf(data));
                         }
                     }
                     default -> {
@@ -84,11 +84,11 @@ public class ReadFile {
                                 }
                             }
                         }
-                        country.getDataset().add(CountryDataElement);
+                        countryObj.getDataset().add(CountryDataElement);
                     }
                 }
             }
-            Country_DataSet.add(country);
+            Country_DataSet.add(countryObj);
         }
         return Country_DataSet;
     }

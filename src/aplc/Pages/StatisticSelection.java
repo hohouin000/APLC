@@ -121,21 +121,21 @@ public class StatisticSelection extends javax.swing.JFrame {
     private void btnSelection2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelection2ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        WeeklyMonthlyCases WeeklyMonthlyCases = new WeeklyMonthlyCases();
-        WeeklyMonthlyCases.setVisible(true);
+        WeeklyMonthlyCases wmcObj = new WeeklyMonthlyCases();
+        wmcObj.setVisible(true);
     }//GEN-LAST:event_btnSelection2ActionPerformed
 
     private void btnSelection3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelection3ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        DeathRecoveredCases DeathRecoveredCases = new DeathRecoveredCases();
-        DeathRecoveredCases.setVisible(true);
+        DeathRecoveredCases drcObj = new DeathRecoveredCases();
+        drcObj.setVisible(true);
     }//GEN-LAST:event_btnSelection3ActionPerformed
 
     private void btnSelection1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelection1ActionPerformed
         this.dispose();
-        ConfirmedCases ConfirmedCases = new ConfirmedCases();
-        ConfirmedCases.setVisible(true);
+        ConfirmedCases ccobj = new ConfirmedCases();
+        ccobj.setVisible(true);
     }//GEN-LAST:event_btnSelection1ActionPerformed
 
     private void btnSelection4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelection4ActionPerformed
@@ -148,8 +148,8 @@ public class StatisticSelection extends javax.swing.JFrame {
     private void btnMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMainMenuActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        MainMenu MainMenu = new MainMenu();
-        MainMenu.setVisible(true);
+        MainMenu menuObj = new MainMenu();
+        menuObj.setVisible(true);
     }//GEN-LAST:event_btnMainMenuActionPerformed
 
     /**

@@ -111,8 +111,8 @@ public class ConfirmedCases extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
-        StatisticSelection StatisticSelection = new StatisticSelection();
-        StatisticSelection.setVisible(true);
+        StatisticSelection statsObj = new StatisticSelection();
+        statsObj.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**
