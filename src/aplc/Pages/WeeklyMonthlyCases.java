@@ -45,77 +45,85 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
     }
 
     private void initTableWeeklyCases() {
-        model = (DefaultTableModel) tb2.getModel();
-        ArrayList<String> columnNames = new ArrayList<>();
-        columnNames.add("Country");
-        if (weeklyFormattedDates != null) {
-            for (int i = 0; i < weeklyFormattedDates.size(); i++) {
-                String weeklyDate = weeklyFormattedDates.get(i);
-                columnNames.add((Functions.getStartDateForWeekly(confirmedCasesDataSet, weeklyDate, weekFormat, weekFormat2)
-                        + " to " + Functions.getEndDateForWeekly(confirmedCasesDataSet, weeklyDate, weekFormat, weekFormat2)));
-            }
-            for (String columnName : columnNames) {
-                model.addColumn(columnName);
-            }
-        }
-
-        int length = columnNames.size();
-        tableConfig(length);
-
-        String[][] tableData = new String[distinctCountriesList.size()][weeklyFormattedDates.size() + 1];
-        if (distinctCountriesList != null) {
-            for (int i = 0; i < distinctCountriesList.size(); i++) {
-                tableData[i][0] = distinctCountriesList.get(i).getName_Region();
-                for (int k = 0; k < weeklyFormattedDates.size(); k++) {
-                    tableData[i][k + 1] = (Functions.getWeeklyOrMonthlyConfirmedCasesByCountry(Functions.getSameCountries(
-                            confirmedCasesDataSet, distinctCountriesList.get(i).getName_Region()),
-                            weeklyFormattedDates.get(k), weekFormat)).toString();
+        try {
+            model = (DefaultTableModel) tb2.getModel();
+            ArrayList<String> columnNames = new ArrayList<>();
+            columnNames.add("Country");
+            if (weeklyFormattedDates != null) {
+                for (int i = 0; i < weeklyFormattedDates.size(); i++) {
+                    String weeklyDate = weeklyFormattedDates.get(i);
+                    columnNames.add((Functions.getStartDateForWeekly(confirmedCasesDataSet, weeklyDate, weekFormat, weekFormat2)
+                            + " to " + Functions.getEndDateForWeekly(confirmedCasesDataSet, weeklyDate, weekFormat, weekFormat2)));
+                }
+                for (String columnName : columnNames) {
+                    model.addColumn(columnName);
                 }
             }
-            for (String[] row : tableData) {
-                model.addRow(row);
-            }
 
+            int length = columnNames.size();
+            tableConfig(length);
+
+            String[][] tableData = new String[distinctCountriesList.size()][weeklyFormattedDates.size() + 1];
+            if (distinctCountriesList != null) {
+                for (int i = 0; i < distinctCountriesList.size(); i++) {
+                    tableData[i][0] = distinctCountriesList.get(i).getName_Region();
+                    for (int k = 0; k < weeklyFormattedDates.size(); k++) {
+                        tableData[i][k + 1] = (Functions.getWeeklyOrMonthlyConfirmedCasesByCountry(Functions.getSameCountries(
+                                confirmedCasesDataSet, distinctCountriesList.get(i).getName_Region()),
+                                weeklyFormattedDates.get(k), weekFormat)).toString();
+                    }
+                }
+                for (String[] row : tableData) {
+                    model.addRow(row);
+                }
+
+            }
+        } catch (Exception e) {
         }
+
     }
 
     private void initTableMonthlyCases() {
-        model = (DefaultTableModel) tb2.getModel();
-        ArrayList<String> columnNames = new ArrayList<>();
-        columnNames.add("Country");
-        if (monthlyFormattedDates != null) {
-            for (int i = 0; i < monthlyFormattedDates.size(); i++) {
+        try {
+            model = (DefaultTableModel) tb2.getModel();
+            ArrayList<String> columnNames = new ArrayList<>();
+            columnNames.add("Country");
+            if (monthlyFormattedDates != null) {
+                for (int i = 0; i < monthlyFormattedDates.size(); i++) {
 
-                String MonthlyDate = monthlyFormattedDates.get(i);
-                try {
-                    columnNames.add(monthFormat.format(monthFormat.parse(MonthlyDate)));
-                } catch (ParseException ex) {
-                    Logger.getLogger(WeeklyMonthlyCases.class.getName()).log(Level.SEVERE, null, ex);
+                    String MonthlyDate = monthlyFormattedDates.get(i);
+                    try {
+                        columnNames.add(monthFormat.format(monthFormat.parse(MonthlyDate)));
+                    } catch (ParseException ex) {
+                        Logger.getLogger(WeeklyMonthlyCases.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                for (String columnName : columnNames) {
+                    model.addColumn(columnName);
                 }
             }
-            for (String columnName : columnNames) {
-                model.addColumn(columnName);
-            }
-        }
 
-        int length = columnNames.size();
-        tableConfig(length);
+            int length = columnNames.size();
+            tableConfig(length);
 
-        String[][] tableData = new String[distinctCountriesList.size()][monthlyFormattedDates.size() + 1];
-        if (distinctCountriesList != null) {
-            for (int i = 0; i < distinctCountriesList.size(); i++) {
-                tableData[i][0] = distinctCountriesList.get(i).getName_Region();
-                for (int k = 0; k < monthlyFormattedDates.size(); k++) {
-                    tableData[i][k + 1] = (Functions.getWeeklyOrMonthlyConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet,
-                            distinctCountriesList.get(i).getName_Region()),
-                            monthlyFormattedDates.get(k), monthFormat)).toString();
+            String[][] tableData = new String[distinctCountriesList.size()][monthlyFormattedDates.size() + 1];
+            if (distinctCountriesList != null) {
+                for (int i = 0; i < distinctCountriesList.size(); i++) {
+                    tableData[i][0] = distinctCountriesList.get(i).getName_Region();
+                    for (int k = 0; k < monthlyFormattedDates.size(); k++) {
+                        tableData[i][k + 1] = (Functions.getWeeklyOrMonthlyConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet,
+                                distinctCountriesList.get(i).getName_Region()),
+                                monthlyFormattedDates.get(k), monthFormat)).toString();
+                    }
                 }
-            }
-            for (String[] row : tableData) {
-                model.addRow(row);
-            }
+                for (String[] row : tableData) {
+                    model.addRow(row);
+                }
 
+            }
+        } catch (Exception e) {
         }
+
     }
 
     /**

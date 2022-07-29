@@ -64,10 +64,11 @@ public class Functions {
      * Requirement 2: Find Weekly and Monthly Confirmed Cases
      */
     public static List<String> getWeeklyOrMonthlyFormattedDate(List<Country> dataSet, SimpleDateFormat dateFormat) {
-        if (dataSet == null) {
+
+        Country resultList = dataSet.stream().findFirst().orElse(null);
+        if (resultList == null) {
             return null;
         }
-        Country resultList = dataSet.get(0);
         return resultList.getDataset().stream()
                 .map(elem -> dateFormat.format(elem.getDate()))
                 .filter(distinctByKey(elem -> elem))
@@ -85,10 +86,10 @@ public class Functions {
     }
 
     public static String getStartDateForWeekly(List<Country> dataSet, String weekYear, SimpleDateFormat dateFormat, SimpleDateFormat dateFormat2) {
-        if (dataSet == null) {
+        Country resultList = dataSet.stream().findFirst().orElse(null);
+        if (resultList == null) {
             return null;
         }
-        Country resultList = dataSet.get(0);
         return resultList.getDataset().stream()
                 .filter(elem -> dateFormat.format(elem.getDate()).equals(weekYear))
                 .sorted(Comparator.comparing(elem -> elem.getDate()))
@@ -96,7 +97,10 @@ public class Functions {
     }
 
     public static String getEndDateForWeekly(List<Country> dataSet, String weekYear, SimpleDateFormat dateFormat, SimpleDateFormat dateFormat2) {
-        Country resultList = dataSet.get(0);
+        Country resultList = dataSet.stream().findFirst().orElse(null);
+        if (resultList == null) {
+            return null;
+        }
         return resultList.getDataset().stream()
                 .filter(elem -> dateFormat.format(elem.getDate()).equals(weekYear))
                 .sorted(Comparator.comparing(elem -> elem.getDate()))

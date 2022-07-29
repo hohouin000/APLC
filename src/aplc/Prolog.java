@@ -54,33 +54,42 @@ public class Prolog {
     }
 
     public static String getCasesByAscendingOrder() {
-        PL_FILE_CONN(path);
-        String output = new String();
-        output += "------------...[ Countries with Covid-19 Confirmed Cases in Ascending Order ]...------------";
-        String qs1 = "asc(Result).";
-        Query newqueryObj = new Query(qs1);
-        Map<String, Term> solution = newqueryObj.oneSolution();
+        try {
 
-        Term[] temp = solution.get("Result").listToTermArray();
-        for (Term result : temp) {
-            output += "\n" + result.toString();
+            PL_FILE_CONN(path);
+            String output = new String();
+            output += "------------...[ Countries with Covid-19 Confirmed Cases in Ascending Order ]...------------";
+            String qs1 = "asc(Result).";
+            Query newqueryObj = new Query(qs1);
+            Map<String, Term> solution = newqueryObj.oneSolution();
+            Term[] temp = solution.get("Result").listToTermArray();
+            for (Term result : temp) {
+                output += "\n" + result.toString();
+            }
+            return output;
+        } catch (Exception e) {
+            return null;
         }
-        return output;
+
     }
 
     public static String getCasesByDecendingOrder() {
-        PL_FILE_CONN(path);
-        String output = new String();
-        output += "------------...[ Countries with Covid-19 Confirmed Cases in Decending Order ]...------------";
-        String qs1 = "dec(Result).";
-        Query newqueryObj = new Query(qs1);
-        Map<String, Term> solution = newqueryObj.oneSolution();
-
-        Term[] temp = solution.get("Result").listToTermArray();
-        for (Term result : temp) {
-            output += "\n" + result.toString();
+        try {
+            PL_FILE_CONN(path);
+            String output = new String();
+            output += "------------...[ Countries with Covid-19 Confirmed Cases in Decending Order ]...------------";
+            String qs1 = "dec(Result).";
+            Query newqueryObj = new Query(qs1);
+            Map<String, Term> solution = newqueryObj.oneSolution();
+            Term[] temp = solution.get("Result").listToTermArray();
+            for (Term result : temp) {
+                output += "\n" + result.toString();
+            }
+            return output;
+        } catch (Exception e) {
+            return null;
         }
-        return output;
+
     }
 
     private static void PL_FILE_CONN(String path) {
