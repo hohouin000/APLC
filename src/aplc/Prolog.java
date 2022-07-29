@@ -4,7 +4,6 @@
  */
 package aplc;
 
-import aplc.Pages.KnowledgeBase;
 import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,8 +31,8 @@ public class Prolog {
                  PrintWriter plFile = new PrintWriter(path)) {
 
             plFile.println("% Rules");
-            plFile.println("asc(Facts) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@<,Result,Facts).");
-            plFile.println("dec(Facts) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@>,Result,Facts).");
+            plFile.println("asc(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@<,Result,Total_Cases).");
+            plFile.println("dec(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@>,Result,Total_Cases).");
 
             plFile.println("% Facts");
             CountryConfirmedCasesList.stream().forEach(elem -> plFile.println("confirmed_cases(" + elem[0].toLowerCase().replace(" ", "_").replaceAll("[^A-Za-z0-9_]", "") + ", " + elem[1] + ")."));
@@ -57,7 +56,6 @@ public class Prolog {
     public static String getCasesByAscendingOrder() {
         PL_FILE_CONN(path);
         String output = new String();
-        KnowledgeBase knldbaseObj = new KnowledgeBase();
         output += "------------...[ Countries with Covid-19 Confirmed Cases in Ascending Order ]...------------";
         String qs1 = "asc(Result).";
         Query newqueryObj = new Query(qs1);
@@ -73,7 +71,6 @@ public class Prolog {
     public static String getCasesByDecendingOrder() {
         PL_FILE_CONN(path);
         String output = new String();
-        KnowledgeBase knldbaseObj = new KnowledgeBase();
         output += "------------...[ Countries with Covid-19 Confirmed Cases in Decending Order ]...------------";
         String qs1 = "dec(Result).";
         Query newqueryObj = new Query(qs1);

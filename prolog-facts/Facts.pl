@@ -1,6 +1,6 @@
 % Rules
-asc(Facts) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@<,Result,Facts).
-dec(Facts) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@>,Result,Facts).
+asc(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@<,Result,Total_Cases).
+dec(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@>,Result,Total_Cases).
 % Facts
 confirmed_cases(afghanistan, 182149).
 confirmed_cases(albania, 279077).
