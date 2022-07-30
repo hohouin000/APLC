@@ -36,28 +36,31 @@ public class DeathRecoveredCases extends javax.swing.JFrame {
     }
 
     private void initTable() {
-        tb3.setAutoCreateRowSorter(true);
-        model = (DefaultTableModel) tb3.getModel();
-        String[][] tableData = new String[distinctCountriesList.size()][5];
-        if (distinctCountriesList != null) {
-            for (int i = 0; i < distinctCountriesList.size(); i++) {
-                tableData[i][0] = (distinctCountriesList.get(i).getName_Region());
-                tableData[i][1] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(countriesDeathCasesDataSet, distinctCountriesList.get(i).getName_Region())
-                ), 0));
-                tableData[i][2] = String.valueOf(Math.max(Functions.getHighestCountryData(Functions.getSameCountries(countriesDeathCasesDataSet, distinctCountriesList.get(i).getName_Region()),
-                        Functions.getHighestValue), 0));
-                tableData[i][3] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(countriesRecoveredCasesDataSet, distinctCountriesList.get(i).getName_Region())
-                ), 0));
-                tableData[i][4] = String.valueOf(Math.max(Functions.getHighestCountryData(Functions.getSameCountries(countriesRecoveredCasesDataSet, distinctCountriesList.get(i).getName_Region()),
-                        Functions.getHighestValue), 0));
-                if (distinctCountriesList == null) {
-                    // Do nothing
+        try {
+            tb3.setAutoCreateRowSorter(true);
+            model = (DefaultTableModel) tb3.getModel();
+            String[][] tableData = new String[distinctCountriesList.size()][5];
+            if (distinctCountriesList != null) {
+                for (int i = 0; i < distinctCountriesList.size(); i++) {
+
+                    tableData[i][0] = (distinctCountriesList.get(i).getName_Region());
+                    tableData[i][1] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(countriesDeathCasesDataSet, distinctCountriesList.get(i).getName_Region())
+                    ), 0));
+                    tableData[i][2] = String.valueOf(Math.max(Functions.getHighestCountryData(Functions.getSameCountries(countriesDeathCasesDataSet, distinctCountriesList.get(i).getName_Region()),
+                            Functions.getHighestValue), 0));
+                    tableData[i][3] = String.valueOf(Math.max(Functions.getLowestCountryData(Functions.getSameCountries(countriesRecoveredCasesDataSet, distinctCountriesList.get(i).getName_Region())
+                    ), 0));
+                    tableData[i][4] = String.valueOf(Math.max(Functions.getHighestCountryData(Functions.getSameCountries(countriesRecoveredCasesDataSet, distinctCountriesList.get(i).getName_Region()),
+                            Functions.getHighestValue), 0));
+
                 }
             }
+            for (String[] row : tableData) {
+                model.addRow(row);
+            }
+        } catch (Exception e) {
         }
-        for (String[] row : tableData) {
-            model.addRow(row);
-        }
+
     }
     // TODO add your handling code here:
 

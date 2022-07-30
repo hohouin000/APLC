@@ -94,19 +94,23 @@ public class ConfirmedCases extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void initTable() {
-        tb1.setAutoCreateRowSorter(true);
-        model = (DefaultTableModel) tb1.getModel();
-        if (distinctCountriesList != null) {
-            for (int i = 0; i < distinctCountriesList.size(); i++) {
-                int totalConfirmedCases = Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet, distinctCountriesList.get(i).getName_Region()));
-                if (distinctCountriesList == null) {
-                } else {
-                    model.insertRow(model.getRowCount(), new Object[]{
-                        distinctCountriesList.get(i).getName_Region(), totalConfirmedCases
-                    });
+        try {
+            tb1.setAutoCreateRowSorter(true);
+            model = (DefaultTableModel) tb1.getModel();
+            if (distinctCountriesList != null) {
+                for (int i = 0; i < distinctCountriesList.size(); i++) {
+                    int totalConfirmedCases = Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(confirmedCasesDataSet, distinctCountriesList.get(i).getName_Region()));
+                    if (distinctCountriesList == null) {
+                    } else {
+                        model.insertRow(model.getRowCount(), new Object[]{
+                            distinctCountriesList.get(i).getName_Region(), totalConfirmedCases
+                        });
+                    }
                 }
             }
+        } catch (Exception e) {
         }
+
     }
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

@@ -9,7 +9,6 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,81 +25,85 @@ public class ReadFile {
     private static List<Country> deathCases = new ArrayList<>();
     private static List<Country> recoveredCases = new ArrayList<>();
 
-    public static List<Country> readCSV(String Path) throws MalformedURLException, IOException,
-            CsvValidationException, ParseException {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
-        FileInputStream file = new FileInputStream(Path);
-        InputStreamReader InputStreamReader = new InputStreamReader(file);
-        CSVReader reader = new CSVReader(InputStreamReader);
-        List<Country> Country_DataSet = new ArrayList<>();
+    public static List<Country> readCSV(String Path) {
+        try {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy");
+            FileInputStream file = new FileInputStream(Path);
+            InputStreamReader InputStreamReader = new InputStreamReader(file);
+            CSVReader reader = new CSVReader(InputStreamReader);
+            List<Country> Country_DataSet = new ArrayList<>();
 
-        String[] row;
-        List<String> headers = new ArrayList<>();
-        boolean isHeader = true;
+            String[] row;
+            List<String> headers = new ArrayList<>();
+            boolean isHeader = true;
 
-        while ((row = reader.readNext()) != null) {
-            Country countryObj = new Country();
-            if (isHeader) {
-                headers.addAll(Arrays.asList(row));
-                isHeader = false;
-                continue;
-            }
-            for (int column = 0; column < row.length; column++) {
-                String header = headers.get(column);
+            while ((row = reader.readNext()) != null) {
+                Country countryObj = new Country();
+                if (isHeader) {
+                    headers.addAll(Arrays.asList(row));
+                    isHeader = false;
+                    continue;
+                }
+                for (int column = 0; column < row.length; column++) {
+                    String header = headers.get(column);
 
-                String data = row[column];
+                    String data = row[column];
 
-                switch (column) {
+                    switch (column) {
 
-                    case 0 -> {
-                        if (!data.isEmpty() && !data.equals("")) {
-                            countryObj.setState_Province(data);
-                        }
-                    }
-                    case 1 ->
-                        countryObj.setName_Region(data);
-                    case 2 -> {
-                        if (!data.isEmpty()) {
-                            countryObj.setLatitude(Float.valueOf(data));
-                        }
-                    }
-                    case 3 -> {
-                        if (!data.isEmpty()) {
-                            countryObj.setLongitude(Float.valueOf(data));
-                        }
-                    }
-                    default -> {
-                        int rowData = Integer.valueOf(data);
-                        CountryDataElement CountryDataElement = new CountryDataElement(dateFormatter.parse(header), rowData);
-                        if (column > 4 && rowData > 0) {
-                            int existingRow = Integer.valueOf(row[column - 1]);
-                            // get row differences ie: 11-11=0
-                            int newRow = rowData - existingRow;
-                            if (existingRow > 0) {
-                                if (newRow < 0) {
-                                    CountryDataElement.setData(newRow);
-                                } else {
-                                    CountryDataElement.setData(newRow);
-                                }
+                        case 0 -> {
+                            if (!data.isEmpty() && !data.equals("")) {
+                                countryObj.setState_Province(data);
                             }
                         }
-                        countryObj.getDataset().add(CountryDataElement);
+                        case 1 ->
+                            countryObj.setName_Region(data);
+                        case 2 -> {
+                            if (!data.isEmpty()) {
+                                countryObj.setLatitude(Float.valueOf(data));
+                            }
+                        }
+                        case 3 -> {
+                            if (!data.isEmpty()) {
+                                countryObj.setLongitude(Float.valueOf(data));
+                            }
+                        }
+                        default -> {
+                            int rowData = Integer.valueOf(data);
+                            CountryDataElement CountryDataElement = new CountryDataElement(dateFormatter.parse(header), rowData);
+                            if (column > 4 && rowData > 0) {
+                                int existingRow = Integer.valueOf(row[column - 1]);
+                                // get row differences ie: 11-11=0
+                                int newRow = rowData - existingRow;
+                                if (existingRow > 0) {
+                                    if (newRow < 0) {
+                                        CountryDataElement.setData(newRow);
+                                    } else {
+                                        CountryDataElement.setData(newRow);
+                                    }
+                                }
+                            }
+                            countryObj.getDataset().add(CountryDataElement);
+                        }
                     }
                 }
+                Country_DataSet.add(countryObj);
             }
-            Country_DataSet.add(countryObj);
+            return Country_DataSet;
+        } catch (CsvValidationException | IOException | NumberFormatException | ParseException e) {
+            return null;
         }
-        return Country_DataSet;
+
     }
 
-    public static void initFile() throws IOException, MalformedURLException, CsvValidationException, ParseException {
+    public static void initFile() {
         String confirmedCasesCSV = "sample-datasets/time_series_covid19_confirmed_global.csv";
         String deathCasesCSV = "sample-datasets/time_series_covid19_deaths_global.csv";
         String recoveredCasesCSV = "sample-datasets/time_series_covid19_recovered_global.csv";
-
         confirmedCases = readCSV(confirmedCasesCSV);
         deathCases = readCSV(deathCasesCSV);
         recoveredCases = readCSV(recoveredCasesCSV);
+
     }
 
     public static List<Country> getConfirmedCases() {

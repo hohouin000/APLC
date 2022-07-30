@@ -26,32 +26,40 @@ public class Prolog {
     public static void generatePrologText() throws Exception {
         List<Country> countryList = ReadFile.getConfirmedCases();
         List<String[]> CountryConfirmedCasesList = getCountryConfirmCases(countryList);
+        try {
+            try (
+                    //generate pl file
+                     PrintWriter plFile = new PrintWriter(PATH)) {
 
-        try (
-                //generate pl file
-                 PrintWriter plFile = new PrintWriter(PATH)) {
+                plFile.println("% Rules");
+                plFile.println("asc(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@<,Result,Total_Cases).");
+                plFile.println("dec(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@>,Result,Total_Cases).");
 
-            plFile.println("% Rules");
-            plFile.println("asc(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@<,Result,Total_Cases).");
-            plFile.println("dec(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@>,Result,Total_Cases).");
+                plFile.println("% Facts");
+                CountryConfirmedCasesList.stream().forEach(elem -> plFile.println("confirmed_cases(" + elem[0].toLowerCase().replace(" ", "_").replaceAll("[^A-Za-z0-9_]", "") + ", " + elem[1] + ")."));
 
-            plFile.println("% Facts");
-            CountryConfirmedCasesList.stream().forEach(elem -> plFile.println("confirmed_cases(" + elem[0].toLowerCase().replace(" ", "_").replaceAll("[^A-Za-z0-9_]", "") + ", " + elem[1] + ")."));
-
+            }
+        } catch (Exception e) {
         }
+
     }
 
     public static List<String[]> getCountryConfirmCases(List<Country> list) throws IOException, CsvException {
-        String[] temp;
-        List resultList = new ArrayList();
-        for (Country countryObj : Functions.getDistinctCountryList(list)) {
-            String totalCases = String.valueOf(Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(list, countryObj.getName_Region())));
-            temp = new String[2];
-            temp[0] = countryObj.getName_Region();
-            temp[1] = totalCases;
-            resultList.add(temp);
+        try {
+            String[] temp;
+            List resultList = new ArrayList();
+            for (Country countryObj : Functions.getDistinctCountryList(list)) {
+                String totalCases = String.valueOf(Functions.getTotalConfirmedCasesByCountry(Functions.getSameCountries(list, countryObj.getName_Region())));
+                temp = new String[2];
+                temp[0] = countryObj.getName_Region();
+                temp[1] = totalCases;
+                resultList.add(temp);
+            }
+            return resultList;
+        } catch (Exception e) {
+            return null;
         }
-        return resultList;
+
     }
 
     public static String getCasesByAscendingOrder() {

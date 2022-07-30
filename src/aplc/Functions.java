@@ -64,7 +64,9 @@ public class Functions {
      * Requirement 2: Find Weekly and Monthly Confirmed Cases
      */
     public static List<String> getWeeklyOrMonthlyFormattedDate(List<Country> dataSet, SimpleDateFormat dateFormat) {
-
+        if (dataSet == null) {
+            return null;
+        }
         Country resultList = dataSet.stream().findFirst().orElse(null);
         if (resultList == null) {
             return null;
