@@ -8,6 +8,7 @@ import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import org.jpl7.Query;
@@ -20,7 +21,7 @@ import org.jpl7.Term;
 public class Prolog {
 
 // Prolog Task 2
-    private static final String path = "prolog-facts/Facts.pl";
+    private static final String PATH = "prolog-facts/Facts.pl";
 
     public static void generatePrologText() throws Exception {
         List<Country> countryList = ReadFile.getConfirmedCases();
@@ -28,7 +29,7 @@ public class Prolog {
 
         try (
                 //generate pl file
-                 PrintWriter plFile = new PrintWriter(path)) {
+                 PrintWriter plFile = new PrintWriter(PATH)) {
 
             plFile.println("% Rules");
             plFile.println("asc(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@<,Result,Total_Cases).");
@@ -56,15 +57,16 @@ public class Prolog {
     public static String getCasesByAscendingOrder() {
         try {
 
-            PL_FILE_CONN(path);
+            PL_FILE_CONN(PATH);
             String output = new String();
             output += "------------...[ Countries with Covid-19 Confirmed Cases in Ascending Order ]...------------";
             String qs1 = "asc(Result).";
             Query newqueryObj = new Query(qs1);
             Map<String, Term> solution = newqueryObj.oneSolution();
-            Term[] temp = solution.get("Result").listToTermArray();
-            for (Term result : temp) {
-                output += "\n" + result.toString();
+            String[] temp = solution.get("Result").toString().replace("[", " ").replace("]]", "").split("],");
+            System.out.println(Arrays.toString(temp));
+            for (String result : temp) {
+                output += "\n" + result;
             }
             return output;
         } catch (Exception e) {
@@ -75,15 +77,15 @@ public class Prolog {
 
     public static String getCasesByDecendingOrder() {
         try {
-            PL_FILE_CONN(path);
+            PL_FILE_CONN(PATH);
             String output = new String();
             output += "------------...[ Countries with Covid-19 Confirmed Cases in Decending Order ]...------------";
             String qs1 = "dec(Result).";
             Query newqueryObj = new Query(qs1);
             Map<String, Term> solution = newqueryObj.oneSolution();
-            Term[] temp = solution.get("Result").listToTermArray();
-            for (Term result : temp) {
-                output += "\n" + result.toString();
+            String[] temp = solution.get("Result").toString().replace("[", " ").replace("]]", "").split("],");
+            for (String result : temp) {
+                output += "\n" + result;
             }
             return output;
         } catch (Exception e) {
@@ -92,13 +94,13 @@ public class Prolog {
 
     }
 
-    private static void PL_FILE_CONN(String path) {
-        Query queryObj = new Query("consult('" + path + "').");
+    private static void PL_FILE_CONN(String PATH) {
+        Query queryObj = new Query("consult('" + PATH + "').");
         boolean isConnected = queryObj.hasSolution();
         if (isConnected) {
-            System.out.println(path + " is connected !");
+            System.out.println(PATH + " is connected !");
         } else {
-            System.out.println(path + " is not connected!");
+            System.out.println(PATH + " is not connected!");
             queryObj.close();
         }
     }
