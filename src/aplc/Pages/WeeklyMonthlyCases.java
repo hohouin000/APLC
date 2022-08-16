@@ -79,6 +79,7 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -122,6 +123,7 @@ public class WeeklyMonthlyCases extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

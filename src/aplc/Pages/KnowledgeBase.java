@@ -7,10 +7,11 @@ package aplc.Pages;
 import aplc.Prolog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JTextArea;
-import javax.swing.text.DefaultCaret;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,9 +19,7 @@ import javax.swing.text.DefaultCaret;
  */
 public class KnowledgeBase extends javax.swing.JFrame {
 
-    public JTextArea getTxtareaOutput() {
-        return txtareaOutput;
-    }
+    DefaultTableModel model;
 
     /**
      * Creates new form Prolog
@@ -32,10 +31,62 @@ public class KnowledgeBase extends javax.swing.JFrame {
         setLocation(size.width / 2 - getWidth() / 2, size.height / 2 - getHeight() / 2);
         try {
             Prolog.generatePrologText();
-        } catch (Exception ex) {
-            Logger.getLogger(KnowledgeBase.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        ((DefaultCaret) txtareaOutput.getCaret()).setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+    }
+
+    private void initTableAsc() {
+        try {
+            List<String> Names = new ArrayList<>();
+            List<String> Cases = new ArrayList<>();
+            tb4.setAutoCreateRowSorter(true);
+            model = (DefaultTableModel) tb4.getModel();
+            Optional<List> temp = Optional.ofNullable(Prolog.getCasesByAscendingOrder());
+            if (temp.isPresent()) {
+                Prolog.getCasesByAscendingOrder().stream().forEach(p -> {
+                    Names.addAll(Arrays.asList(p.replace("[", "").split(",")[0]));
+                });
+                Prolog.getCasesByAscendingOrder().stream().forEach(p -> {
+                    Cases.addAll(Arrays.asList(p.replace("]", "").substring(p.indexOf(",") + 1)));
+                });
+                for (int i = 0; i < Prolog.getCasesByAscendingOrder().size(); i++) {
+                    String names = Names.get(i);
+                    String cases = Cases.get(i);
+                    model.insertRow(model.getRowCount(), new Object[]{names, cases});
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void initTableDsc() {
+        try {
+            List<String> Names = new ArrayList<>();
+            List<String> Cases = new ArrayList<>();
+            tb4.setAutoCreateRowSorter(true);
+            model = (DefaultTableModel) tb4.getModel();
+            Optional<List> temp = Optional.ofNullable(Prolog.getCasesByAscendingOrder());
+            if (temp.isPresent()) {
+                Prolog.getCasesByDecendingOrder().stream().forEach(p -> {
+                    Names.addAll(Arrays.asList(p.replace("[", "").split(",")[0]));
+                });
+                Prolog.getCasesByDecendingOrder().stream().forEach(p -> {
+                    Cases.addAll(Arrays.asList(p.replace("]", "").substring(p.indexOf(",") + 1)));
+                });
+                for (int i = 0; i < Prolog.getCasesByDecendingOrder().size(); i++) {
+                    String names = Names.get(i);
+                    String cases = Cases.get(i);
+                    model.insertRow(model.getRowCount(), new Object[]{names, cases});
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -49,13 +100,13 @@ public class KnowledgeBase extends javax.swing.JFrame {
 
         cmbSort = new javax.swing.JComboBox<>();
         btnBack = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtareaOutput = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tb4 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select Sorting Option-", "Ascending", "Decending" }));
+        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select Sorting Option-", "Accending", "Deccending" }));
         cmbSort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSortActionPerformed(evt);
@@ -69,9 +120,23 @@ public class KnowledgeBase extends javax.swing.JFrame {
             }
         });
 
-        txtareaOutput.setColumns(20);
-        txtareaOutput.setRows(5);
-        jScrollPane1.setViewportView(txtareaOutput);
+        tb4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name Region", "Cases"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tb4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,8 +144,8 @@ public class KnowledgeBase extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(cmbSort, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(420, 420, 420)
@@ -90,13 +155,13 @@ public class KnowledgeBase extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbSort, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBack, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
 
         pack();
@@ -108,29 +173,25 @@ public class KnowledgeBase extends javax.swing.JFrame {
         menuObj.setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    public void returnList(String list) {
-        txtareaOutput.setText(list);
-    }
     private void cmbSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSortActionPerformed
         switch (cmbSort.getSelectedIndex()) {
             default -> {
                 cmbSort.setSelectedIndex(0);
             }
             case 0 -> {
-                txtareaOutput.removeAll();
-
-                txtareaOutput.setText("Please Select a Sorting option !");
+                model = (DefaultTableModel) tb4.getModel();
+                model.setRowCount(0);
             }
             case 1 -> {
-                txtareaOutput.removeAll();
-
-                txtareaOutput.setText(Prolog.getCasesByAscendingOrder());
+                model = (DefaultTableModel) tb4.getModel();
+                model.setRowCount(0);
+                initTableAsc();
             }
 
             case 2 -> {
-                txtareaOutput.removeAll();
-
-                txtareaOutput.setText(Prolog.getCasesByDecendingOrder());
+                model = (DefaultTableModel) tb4.getModel();
+                model.setRowCount(0);
+                initTableDsc();
             }
         }
     }//GEN-LAST:event_cmbSortActionPerformed
@@ -174,7 +235,7 @@ public class KnowledgeBase extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JComboBox<String> cmbSort;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea txtareaOutput;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tb4;
     // End of variables declaration//GEN-END:variables
 }

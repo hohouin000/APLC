@@ -59,6 +59,7 @@ public class DeathRecoveredCases extends javax.swing.JFrame {
                 model.addRow(row);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
