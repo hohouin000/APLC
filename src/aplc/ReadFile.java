@@ -73,7 +73,6 @@ public class ReadFile {
                             CountryDataElement CountryDataElement = new CountryDataElement(dateFormatter.parse(header), rowData);
                             if (column > 4 && rowData > 0) {
                                 int existingRow = Integer.valueOf(row[column - 1]);
-                                // get row differences ie: 11-11=0
                                 int newRow = rowData - existingRow;
                                 if (existingRow > 0) {
                                     if (newRow < 0) {

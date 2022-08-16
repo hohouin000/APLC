@@ -28,15 +28,17 @@ public class Prolog {
         List<String[]> CountryConfirmedCasesList = getCountryConfirmCases(countryList);
         try {
             try (
-                    //generate pl file
                      PrintWriter plFile = new PrintWriter(PATH)) {
 
                 plFile.println("% Rules");
-                plFile.println("asc(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@<,Result,Total_Cases).");
-                plFile.println("dec(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), sort(2,@>,Result,Total_Cases).");
+                plFile.println("asc(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), "
+                        + "sort(2,@<,Result,Total_Cases).");
+                plFile.println("dec(Total_Cases) :- findall([Name_Region,Confirmed_Cases],confirmed_cases(Name_Region,Confirmed_Cases),Result), "
+                        + "sort(2,@>,Result,Total_Cases).");
 
                 plFile.println("% Facts");
-                CountryConfirmedCasesList.stream().forEach(elem -> plFile.println("confirmed_cases(" + elem[0].toLowerCase().replace(" ", "_").replaceAll("[^A-Za-z0-9_]", "") + ", " + elem[1] + ")."));
+                CountryConfirmedCasesList.stream().forEach(elem -> plFile.println("confirmed_cases(" + elem[0].toLowerCase().replace(" ", "_")
+                        .replaceAll("[^A-Za-z0-9_]", "") + ", " + elem[1] + ")."));
 
             }
         } catch (Exception e) {

@@ -55,7 +55,7 @@ public class KnowledgeBase extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select Sorting Option-", "Accending", "Deccending" }));
+        cmbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Select Sorting Option-", "Ascending", "Decending" }));
         cmbSort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSortActionPerformed(evt);
